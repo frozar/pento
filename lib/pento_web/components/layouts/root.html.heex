@@ -27,7 +27,7 @@
           setTheme(localStorage.getItem("phx:theme") || "system");
         }
         window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
-        
+
         window.addEventListener("phx:set-theme", (e) => setTheme(e.target.dataset.phxTheme));
 
         matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
@@ -42,7 +42,7 @@
     <ul class="menu menu-horizontal w-full relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
       <%= if @current_scope do %>
         <li>
-          {@current_scope.user.email}
+          {if @current_scope.user.username, do: @current_scope.user.username, else: "(no username)"}
         </li>
         <li>
           <.link href={~p"/users/settings"}>Settings</.link>

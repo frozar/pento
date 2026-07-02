@@ -4,6 +4,7 @@ defmodule Pento.Accounts.User do
 
   schema "users" do
     field :email, :string
+    field :username, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime
@@ -27,12 +28,13 @@ defmodule Pento.Accounts.User do
     user
     |> cast(attrs, [:email])
     |> validate_email(opts)
+    |> unique_constraint(:username)
   end
 
   defp validate_email(changeset, opts) do
     changeset =
       changeset
-      |> validate_required([:email])
+      |> validate_required([:email, :username])
       |> validate_format(:email, ~r/^[^@,;\s]+@[^@,;\s]+$/,
         message: "must have the @ sign and no spaces"
       )
@@ -41,7 +43,9 @@ defmodule Pento.Accounts.User do
     if Keyword.get(opts, :validate_unique, true) do
       changeset
       |> unsafe_validate_unique(:email, Pento.Repo)
+      |> unsafe_validate_unique(:username, Pento.Repo)
       |> unique_constraint(:email)
+      |> unique_constraint(:username)
       |> validate_email_changed()
     else
       changeset

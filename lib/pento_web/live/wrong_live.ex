@@ -60,7 +60,7 @@ defmodule PentoWeb.WrongLive do
         </.link>
       <% end %>
       <pre>
-        <%= @current_scope.user.email %>
+        <%= @current_scope.user.username %>
         <%= @session_id %>
       </pre>
     </h2>
