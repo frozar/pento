@@ -221,7 +221,8 @@ defmodule PentoWeb.UserAuth do
 
     if socket.assigns.current_scope && socket.assigns.current_scope.user do
       # {:cont, socket}
-      {:cont, Phoenix.Component.assign(socket, :session_id, session["live_socket_id"])}
+      # {:cont, Phoenix.Component.assign(socket, :session_id, session["live_socket_id"])}
+      {:cont, Phoenix.Component.assign_new(socket, :session_id, fn -> session["live_socket_id"] end)}
     else
       socket =
         socket
