@@ -56,6 +56,13 @@ defmodule PentoWeb.Router do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
       live "/guess", WrongLive
+
+      live "/products", ProductLive.Index, :index
+      live "/products/new", ProductLive.Index, :new
+
+      live "/products/:id/edit", ProductLive.Index, :edit
+      live "/products/:id", ProductLive.Show, :show
+      live "/products/:id/show/edit", ProductLive.Show, :edit
     end
 
     post "/users/update-password", UserSessionController, :update_password
