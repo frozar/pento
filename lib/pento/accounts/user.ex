@@ -26,7 +26,7 @@ defmodule Pento.Accounts.User do
   """
   def email_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email])
+    |> cast(attrs, [:email, :username])
     |> validate_email(opts)
     |> unique_constraint(:username)
   end
